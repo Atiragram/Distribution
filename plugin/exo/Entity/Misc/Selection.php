@@ -2,13 +2,13 @@
 
 namespace UJM\ExoBundle\Entity\Misc;
 
+use Claroline\CoreBundle\Library\Model\UuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UJM\ExoBundle\Entity\ItemType\SelectionQuestion;
 use UJM\ExoBundle\Library\Attempt\AnswerPartInterface;
 use UJM\ExoBundle\Library\Model\FeedbackTrait;
 use UJM\ExoBundle\Library\Model\ScoreTrait;
-use Claroline\CoreBundle\Library\Model\UuidTrait;
 
 /**
  * Selection.

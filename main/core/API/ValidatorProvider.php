@@ -50,9 +50,9 @@ class ValidatorProvider
     /**
      * Validates `data` using the `class` validator.
      *
-     * @param string $class - the class of the validator to use.
-     * @param mixed $data - the data to validate.
-     * @param bool $throwException - if true an InvalidDataException is thrown instead of returning the errors.
+     * @param string $class          - the class of the validator to use
+     * @param mixed  $data           - the data to validate
+     * @param bool   $throwException - if true an InvalidDataException is thrown instead of returning the errors
      *
      * @return array
      *

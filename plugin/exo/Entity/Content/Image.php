@@ -2,8 +2,8 @@
 
 namespace UJM\ExoBundle\Entity\Content;
 
-use Doctrine\ORM\Mapping as ORM;
 use Claroline\CoreBundle\Library\Model\UuidTrait;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Image.

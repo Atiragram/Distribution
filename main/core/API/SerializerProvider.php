@@ -60,9 +60,9 @@ class SerializerProvider
     /**
      * Serializes an object.
      *
-     * @param $object - the object to serialize.
+     * @param $object - the object to serialize
      *
-     * @return mixed - a json serializable structure.
+     * @return mixed - a json serializable structure
      */
     public function serialize($object)
     {

@@ -2,11 +2,11 @@
 
 namespace UJM\ExoBundle\Entity\Misc;
 
+use Claroline\CoreBundle\Library\Model\UuidTrait;
 use Doctrine\ORM\Mapping as ORM;
 use UJM\ExoBundle\Library\Model\ContentTrait;
 use UJM\ExoBundle\Library\Model\FeedbackTrait;
 use UJM\ExoBundle\Library\Model\ScoreTrait;
-use Claroline\CoreBundle\Library\Model\UuidTrait;
 
 /**
  * @ORM\MappedSuperclass

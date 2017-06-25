@@ -45,7 +45,7 @@ class FinderProvider
      *     "serializer" = @DI\Inject("claroline.API.serializer")
      * })
      *
-     * @param ObjectManager $om
+     * @param ObjectManager      $om
      * @param SerializerProvider $serializer
      */
     public function __construct(

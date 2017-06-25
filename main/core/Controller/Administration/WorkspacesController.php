@@ -45,7 +45,7 @@ class WorkspacesController extends Controller
      * @param WorkspaceManager $workspaceManager
      * @param ObjectManager    $om
      * @param StrictDispatcher $eventDispatcher
-     * @param FinderProvider           $finder
+     * @param FinderProvider   $finder
      */
     public function __construct(
         WorkspaceManager $workspaceManager,

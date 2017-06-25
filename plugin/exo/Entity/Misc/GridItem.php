@@ -2,9 +2,9 @@
 
 namespace UJM\ExoBundle\Entity\Misc;
 
+use Claroline\CoreBundle\Library\Model\UuidTrait;
 use Doctrine\ORM\Mapping as ORM;
 use UJM\ExoBundle\Library\Model\ContentTrait;
-use Claroline\CoreBundle\Library\Model\UuidTrait;
 
 /**
  * GridItem.

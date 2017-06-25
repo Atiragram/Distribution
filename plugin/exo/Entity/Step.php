@@ -2,12 +2,12 @@
 
 namespace UJM\ExoBundle\Entity;
 
+use Claroline\CoreBundle\Library\Model\UuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UJM\ExoBundle\Entity\Item\Item;
 use UJM\ExoBundle\Library\Model\AttemptParametersTrait;
 use UJM\ExoBundle\Library\Model\OrderTrait;
-use Claroline\CoreBundle\Library\Model\UuidTrait;
 
 /**
  * A step represents a group of items (questions or content) inside an exercise.

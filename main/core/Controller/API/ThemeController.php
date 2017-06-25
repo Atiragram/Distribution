@@ -41,7 +41,7 @@ class ThemeController
      * @EXT\Route("/{uuid}", name="claro_theme_update")
      * @EXT\Method("PUT")
      *
-     * @param Theme $theme
+     * @param Theme   $theme
      * @param Request $request
      *
      * @return JsonResponse
@@ -72,11 +72,9 @@ class ThemeController
 
     public function importAction()
     {
-
     }
 
     public function exportAction(Theme $theme)
     {
-
     }
 }

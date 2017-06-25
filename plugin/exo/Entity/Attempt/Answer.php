@@ -2,9 +2,9 @@
 
 namespace UJM\ExoBundle\Entity\Attempt;
 
+use Claroline\CoreBundle\Library\Model\UuidTrait;
 use Doctrine\ORM\Mapping as ORM;
 use UJM\ExoBundle\Entity\Item\Item;
-use Claroline\CoreBundle\Library\Model\UuidTrait;
 
 /**
  * An answer represents a user answer to a question.

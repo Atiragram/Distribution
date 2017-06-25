@@ -24,10 +24,10 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class WorkspaceFinder implements FinderInterface
 {
-    /** @var AuthorizationCheckerInterface  */
+    /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
-    /** @var TokenStorageInterface  */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     /**
@@ -39,7 +39,7 @@ class WorkspaceFinder implements FinderInterface
      * })
      *
      * @param AuthorizationCheckerInterface $authChecker
-     * @param TokenStorageInterface $tokenStorage
+     * @param TokenStorageInterface         $tokenStorage
      */
     public function __construct(
         AuthorizationCheckerInterface $authChecker,

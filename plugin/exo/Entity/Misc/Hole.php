@@ -2,10 +2,10 @@
 
 namespace UJM\ExoBundle\Entity\Misc;
 
+use Claroline\CoreBundle\Library\Model\UuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UJM\ExoBundle\Entity\ItemType\ClozeQuestion;
-use Claroline\CoreBundle\Library\Model\UuidTrait;
 
 /**
  * Hole.

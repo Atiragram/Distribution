@@ -3,10 +3,10 @@
 namespace UJM\ExoBundle\Entity\Item;
 
 use Claroline\CoreBundle\Entity\User;
+use Claroline\CoreBundle\Library\Model\UuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UJM\ExoBundle\Entity\ItemType\AbstractItem;
-use Claroline\CoreBundle\Library\Model\UuidTrait;
 
 /**
  * @ORM\Entity(repositoryClass="UJM\ExoBundle\Repository\ItemRepository")

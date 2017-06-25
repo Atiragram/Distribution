@@ -2,11 +2,11 @@
 
 namespace UJM\ExoBundle\Entity\Item;
 
+use Claroline\CoreBundle\Library\Model\UuidTrait;
 use Doctrine\ORM\Mapping as ORM;
 use UJM\ExoBundle\Library\Attempt\PenaltyItemInterface;
 use UJM\ExoBundle\Library\Model\ContentTrait;
 use UJM\ExoBundle\Library\Model\PenaltyTrait;
-use Claroline\CoreBundle\Library\Model\UuidTrait;
 
 /**
  * Hint.

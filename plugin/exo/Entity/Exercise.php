@@ -3,12 +3,12 @@
 namespace UJM\ExoBundle\Entity;
 
 use Claroline\CoreBundle\Entity\Resource\AbstractResource;
+use Claroline\CoreBundle\Library\Model\UuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UJM\ExoBundle\Library\Mode\CorrectionMode;
 use UJM\ExoBundle\Library\Mode\MarkMode;
 use UJM\ExoBundle\Library\Model\AttemptParametersTrait;
-use Claroline\CoreBundle\Library\Model\UuidTrait;
 use UJM\ExoBundle\Library\Options\ExerciseType;
 
 /**

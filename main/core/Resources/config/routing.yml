@@ -22,7 +22,7 @@ claro_theme:
     type: annotation
 
 claro_theme_api:
-    resource: "@ClarolineCoreBundle/Controller/API/Admin/ThemeController.php"
+    resource: "@ClarolineCoreBundle/Controller/API/ThemeController.php"
     type: annotation
 
 claro_content_typeerror:
