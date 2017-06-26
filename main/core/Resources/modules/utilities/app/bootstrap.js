@@ -7,13 +7,12 @@ import {combineReducers, createStore} from '#/main/core/utilities/redux'
 /**
  * Bootstraps a new React/Redux app.
  *
- * @param {string} containerSelector - a selector to retrieve the HTML element which will hold the JS app.
- * @param {mixed}  rootComponent     - the React root component of the app.
- * @param {object} reducers          - an object containing the reducers of the app.
- *
- * @todo allow to decorate/normalize data attributes (see quizzes).
+ * @param {string}   containerSelector - a selector to retrieve the HTML element which will hold the JS app.
+ * @param {mixed}    rootComponent     - the React root component of the app.
+ * @param {object}   reducers          - an object containing the reducers of the app.
+ * @param {function} transformData     - a function to transform data before adding them to the store.
  */
-export function bootstrap(containerSelector, rootComponent, reducers) {
+export function bootstrap(containerSelector, rootComponent, reducers, transformData = (data) => data) {
   // Retrieve app container
   const container = document.querySelector(containerSelector)
   if (!container) {
@@ -35,7 +34,7 @@ export function bootstrap(containerSelector, rootComponent, reducers) {
     React.createElement(
       Provider,
       {
-        store: createStore(combineReducers(reducers), initialData)
+        store: createStore(combineReducers(reducers), transformData(initialData))
       },
       React.createElement(rootComponent)
     ),

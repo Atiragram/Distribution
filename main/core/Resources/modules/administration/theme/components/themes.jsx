@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {PropTypes as T} from 'prop-types'
 import {connect} from 'react-redux'
+import {NavLink, withRouter} from 'react-router-dom'
 
 import {t, trans, transChoice} from '#/main/core/translation'
 import {MODAL_CONFIRM, MODAL_DELETE_CONFIRM} from '#/main/core/layout/modal'
@@ -17,8 +18,6 @@ import {Page, PageHeader, PageContent} from '#/main/core/layout/page/components/
 import {PageActions, PageAction} from '#/main/core/layout/page/components/page-actions.jsx'
 
 import {DataList} from '#/main/core/layout/list/components/data-list.jsx'
-
-import {Theme} from './theme.jsx'
 
 class Themes extends Component {
   constructor(props) {
@@ -58,9 +57,7 @@ class Themes extends Component {
   }
 
   render() {
-    return null !== this.props.currentTheme ? (
-      <Theme {...this.props.currentTheme} />
-      ) : (
+    return (
       <Page
         id="theme-management"
         modal={this.props.modal}
@@ -98,14 +95,14 @@ class Themes extends Component {
                 name: 'name',
                 type: 'string',
                 label: trans('theme_name', {}, 'theme'),
-                renderer: (rowData) => <a onClick={() => this.props.selectTheme(rowData)}>{rowData.name}</a>
+                renderer: (rowData) => <NavLink to={`/${rowData.id}`}>{rowData.name}</NavLink>
               },
               {
                 name: 'plugin',
                 type: 'string',
                 label: t('plugin')
               },
-              {name: 'current', type: 'boolean', label: trans('theme_current', {}, 'theme')},
+              {name: 'current', type: 'flag', label: trans('theme_current', {}, 'theme')},
             ]}
 
             actions={[
@@ -179,7 +176,7 @@ Themes.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    currentTheme: select.currentTheme(state),
+    /*currentTheme: select.currentTheme(state),*/
     themes: select.themes(state),
     selected: listSelect.selected(state),
     sortBy: listSelect.sortBy(state),
@@ -193,9 +190,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(actions.createTheme())
     },
 
-    selectTheme: (theme) => {
+    /*selectTheme: (theme) => {
       dispatch(actions.selectTheme(theme))
-    },
+    },*/
 
     copyTheme: () => {
       dispatch(actions.copyTheme())
@@ -231,6 +228,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-const ConnectedThemes = connect(mapStateToProps, mapDispatchToProps)(Themes)
+const ConnectedThemes = withRouter(connect(mapStateToProps, mapDispatchToProps)(Themes))
 
 export {ConnectedThemes as Themes}
