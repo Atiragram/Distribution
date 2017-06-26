@@ -6,7 +6,7 @@ use Claroline\CoreBundle\Validator\Exception\InvalidDataException;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("claroline.API.validator")
+ * @DI\Service("claroline.api.validator")
  */
 class ValidatorProvider
 {

@@ -5,7 +5,7 @@ namespace Claroline\CoreBundle\API;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("claroline.API.serializer")
+ * @DI\Service("claroline.api.serializer")
  */
 class SerializerProvider
 {

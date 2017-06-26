@@ -105,7 +105,7 @@ ListDisplayButton.propTypes = {
  */
 const ListActions = props =>
   <div className="list-actions">
-    {(props.columns && LIST_DISPLAY_LIST_VALUE === props.display.current) &&
+    {(props.columns && 1 < props.columns.available.length && LIST_DISPLAY_LIST_VALUE === props.display.current) &&
       <ColumnsButton
         {...props.columns}
       />
@@ -139,9 +139,11 @@ ListActions.propTypes = {
  */
 const ListHeader = props =>
   <div className="list-header">
-    <ListSearch
-      {...props.filters}
-    />
+    {props.filters &&
+      <ListSearch
+        {...props.filters}
+      />
+    }
 
     <ListActions
       display={props.display}

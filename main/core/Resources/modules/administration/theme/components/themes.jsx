@@ -2,35 +2,65 @@ import React, {Component} from 'react'
 import {PropTypes as T} from 'prop-types'
 import {connect} from 'react-redux'
 
-import {t, transChoice, ClarolineTranslator} from '#/main/core/translation'
-import {generateUrl} from '#/main/core/fos-js-router'
-import {MODAL_CONFIRM, MODAL_DELETE_CONFIRM, MODAL_URL, MODAL_USER_PICKER} from '#/main/core/layout/modal'
-
-import Configuration from '#/main/core/library/Configuration/Configuration'
+import {t, trans, transChoice} from '#/main/core/translation'
+import {MODAL_CONFIRM, MODAL_DELETE_CONFIRM} from '#/main/core/layout/modal'
 
 import {actions as modalActions} from '#/main/core/layout/modal/actions'
-import {actions as paginationActions} from '#/main/core/layout/pagination/actions'
 import {actions as listActions} from '#/main/core/layout/list/actions'
-import {actions} from '#/main/core/administration/workspace/actions'
+import {actions} from '#/main/core/administration/theme/actions'
 
 import {select as modalSelect} from '#/main/core/layout/modal/selectors'
-import {select as paginationSelect} from '#/main/core/layout/pagination/selectors'
 import {select as listSelect} from '#/main/core/layout/list/selectors'
-import {select} from '#/main/core/administration/workspace/selectors'
+import {select} from '#/main/core/administration/theme/selectors'
 
 import {Page, PageHeader, PageContent} from '#/main/core/layout/page/components/page.jsx'
 import {PageActions, PageAction} from '#/main/core/layout/page/components/page-actions.jsx'
 
-import {LIST_PROP_DEFAULT, LIST_PROP_DISPLAYED, LIST_PROP_DISPLAYABLE, LIST_PROP_FILTERABLE} from '#/main/core/layout/list/utils'
 import {DataList} from '#/main/core/layout/list/components/data-list.jsx'
+
+import {Theme} from './theme.jsx'
 
 class Themes extends Component {
   constructor(props) {
     super(props)
   }
 
+  getThemes(themeIds) {
+    return themeIds.map(themeId => this.props.themes.find(theme => themeId === theme.id))
+  }
+
+  getTheme(themeId) {
+    return this.props.themes.find(theme => themeId === theme.id)
+  }
+
+  rebuildThemes(themeIds) {
+    const themes = this.getThemes(themeIds)
+
+    this.props.showModal(MODAL_CONFIRM, {
+      title: transChoice('rebuild_themes', themes.length, {count: themes.length}, 'theme'),
+      question: trans('rebuild_themes_confirm', {
+        workspace_list: themes.map(theme => theme.name).join(', ')
+      }, 'theme'),
+      handleConfirm: () => this.props.rebuildThemes(themes)
+    })
+  }
+
+  removeThemes(themeIds) {
+    const themes = this.getThemes(themeIds)
+
+    this.props.showModal(MODAL_DELETE_CONFIRM, {
+      title: transChoice('remove_themes', themes.length, {count: themes.length}, 'theme'),
+      question: trans('remove_themes_confirm', {
+        workspace_list: themes.map(theme => theme.name).join(', ')
+      }, 'theme'),
+      handleConfirm: () => this.props.removeThemes(themes)
+    })
+  }
+
   render() {
-    return (
+    return null !== this.props.currentTheme ? (
+      <Theme {...this.props.currentTheme} />
+      ) : (
       <Page
         id="theme-management"
         modal={this.props.modal}
@@ -38,20 +68,20 @@ class Themes extends Component {
         hideModal={this.props.hideModal}
       >
         <PageHeader
-          title={t('theme_management')}
+          title={trans('theme_management', {}, 'theme')}
         >
           <PageActions>
             <PageAction
               id="theme-add"
-              title={t('create_theme')}
+              title={trans('create_theme', {}, 'theme')}
               icon="fa fa-plus"
               primary={true}
-              action="#"
+              action={this.props.createTheme}
             />
 
             <PageAction
               id="theme-import"
-              title={t('import_theme')}
+              title={trans('import_theme', {}, 'theme')}
               icon="fa fa-download"
               action="#"
             />
@@ -67,19 +97,31 @@ class Themes extends Component {
               {
                 name: 'name',
                 type: 'string',
-                label: t('name')
-              }
+                label: trans('theme_name', {}, 'theme'),
+                renderer: (rowData) => <a onClick={() => this.props.selectTheme(rowData)}>{rowData.name}</a>
+              },
+              {
+                name: 'plugin',
+                type: 'string',
+                label: t('plugin')
+              },
+              {name: 'current', type: 'boolean', label: trans('theme_current', {}, 'theme')},
             ]}
 
             actions={[
               {
-                icon: 'fa fa-fw fa-pencil',
-                label: t('edit_theme'),
-                action: (row) => true
+                icon: 'fa fa-fw fa-refresh',
+                label: trans('rebuild_theme', {}, 'theme'),
+                action: (row) => this.rebuildThemes([row.id])
+              },
+              {
+                icon: 'fa fa-fw fa-copy',
+                label: trans('copy_theme', {}, 'theme'),
+                action: (row) => this.props.copyTheme(this.getTheme(row.id))
               }, {
                 icon: 'fa fa-fw fa-trash-o',
                 label: t('delete'),
-                action: (row) => this.removeWorkspaces([row.id]),
+                action: (row) => this.removeThemes([row.id]),
                 isDangerous: true
               },
               {
@@ -99,7 +141,8 @@ class Themes extends Component {
               toggle: this.props.toggleSelect,
               toggleAll: this.props.toggleSelectAll,
               actions: [
-                {label: t('delete'), icon: 'fa fa-fw fa-trash-o', action: () => true, isDangerous: true}
+                {label: t('rebuild_themes'), icon: 'fa fa-fw fa-refresh', action: () => this.rebuildThemes(this.props.selected)},
+                {label: t('delete'), icon: 'fa fa-fw fa-trash-o', action: () => this.removeThemes(this.props.selected), isDangerous: true}
               ]
             }}
           />
@@ -112,8 +155,10 @@ class Themes extends Component {
 Themes.propTypes = {
   themes: T.arrayOf(T.object),
 
-  removeWorkspaces: T.func.isRequired,
-  copyWorkspaces: T.func.isRequired,
+  createTheme: T.func.isRequired,
+  copyTheme: T.func.isRequired,
+  removeThemes: T.func.isRequired,
+  rebuildThemes: T.func.isRequired,
 
   sortBy: T.object.isRequired,
   updateSort: T.func.isRequired,
@@ -134,6 +179,7 @@ Themes.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    currentTheme: select.currentTheme(state),
     themes: select.themes(state),
     selected: listSelect.selected(state),
     sortBy: listSelect.sortBy(state),
@@ -143,48 +189,29 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // workspaces
-    removeWorkspaces: (workspaces) => {
-      dispatch(actions.removeWorkspaces(workspaces))
-    },
-    copyWorkspaces: (workspaces, isModel) => {
-      dispatch(actions.copyWorkspaces(workspaces, isModel))
-    },
-    addManager: (workspace, user) => {
-      dispatch(actions.addManager(workspace, user))
-    },
-    removeManager: (workspace, user) => {
-      dispatch(actions.removeManager(workspace, user))
-    },
-    // search
-    addListFilter: (property, value) => {
-      dispatch(listActions.addFilter(property, value))
-      // grab updated workspace list
-      dispatch(actions.fetchWorkspaces())
-    },
-    removeListFilter: (filter) => {
-      dispatch(listActions.removeFilter(filter))
-      // grab updated workspace list
-      dispatch(actions.fetchWorkspaces())
+    createTheme: () => {
+      dispatch(actions.createTheme())
     },
 
-    // pagination
-    handlePageSizeUpdate: (pageSize) => {
-      dispatch(paginationActions.updatePageSize(pageSize))
-      // grab updated workspace list
-      dispatch(actions.fetchWorkspaces())
+    selectTheme: (theme) => {
+      dispatch(actions.selectTheme(theme))
     },
-    handlePageChange: (page) => {
-      dispatch(paginationActions.changePage(page))
-      // grab updated workspace list
-      dispatch(actions.fetchWorkspaces())
+
+    copyTheme: () => {
+      dispatch(actions.copyTheme())
+    },
+
+    rebuildThemes: (themes) => {
+      dispatch(actions.rebuildThemes(themes))
+    },
+
+    removeThemes: (themes) => {
+      dispatch(actions.removeThemes(themes))
     },
 
     // sorting
     updateSort: (property) => {
       dispatch(listActions.updateSort(property))
-      // grab updated workspace list
-      dispatch(actions.fetchWorkspaces())
     },
 
     // selection

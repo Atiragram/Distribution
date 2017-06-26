@@ -1,6 +1,8 @@
 
-const themes = (state) => state.themes
+const themes = (state) => state.themes.all
+const currentTheme = (state) => state.themes.current
 
-export {
-  themes
+export const select = {
+  themes,
+  currentTheme
 }

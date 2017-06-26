@@ -16,7 +16,7 @@ use Doctrine\ORM\QueryBuilder;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("claroline.API.finder")
+ * @DI\Service("claroline.api.finder")
  */
 class FinderProvider
 {
@@ -42,7 +42,7 @@ class FinderProvider
      *
      * @DI\InjectParams({
      *     "om"         = @DI\Inject("claroline.persistence.object_manager"),
-     *     "serializer" = @DI\Inject("claroline.API.serializer")
+     *     "serializer" = @DI\Inject("claroline.api.serializer")
      * })
      *
      * @param ObjectManager      $om

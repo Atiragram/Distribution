@@ -1,34 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {Provider} from 'react-redux'
+import {bootstrap} from '#/main/core/utilities/app/bootstrap'
 
-import {createStore} from '#/main/core/utilities/redux'
+import {reducer as apiReducer} from '#/main/core/api/reducer'
+import {reducer as modalReducer} from '#/main/core/layout/modal/reducer'
+import {makeListReducer} from '#/main/core/layout/list/reducer'
+import {reducer as themesReducer} from '#/main/core/administration/theme/reducer'
 
-import {reducer} from '#/main/core/administration/theme/reducer'
 import {Themes} from '#/main/core/administration/theme/components/themes.jsx'
 
-class ThemeAdministration {
-  constructor(initialData) {
-    this.store = createStore(reducer, initialData)
-  }
-
-  render(element) {
-    ReactDOM.render(
-      React.createElement(
-        Provider,
-        {store: this.store},
-        React.createElement(Themes)
-      ),
-      element
-    )
-  }
-}
-
-const container = document.querySelector('.themes-container')
-const themes = JSON.parse(container.dataset.themes)
-
-const themeTool = new ThemeAdministration({
-  themes: themes
+bootstrap('.themes-container', Themes, {
+  currentRequests: apiReducer,
+  themes: themesReducer,
+  list: makeListReducer(false), // disable filters
+  modal: modalReducer
 })
-
-themeTool.render(container)

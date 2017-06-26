@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * @DI\Service("claroline.API.finder.workspace")
+ * @DI\Service("claroline.api.finder.workspace")
  * @DI\Tag("claroline.finder")
  */
 class WorkspaceFinder implements FinderInterface

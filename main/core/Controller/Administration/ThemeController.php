@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Claroline\CoreBundle\Controller;
+namespace Claroline\CoreBundle\Controller\Administration;
 
+use Claroline\CoreBundle\API\SerializerProvider;
 use Claroline\CoreBundle\Entity\Theme\Theme;
 use Claroline\CoreBundle\Form\ThemeType;
 use Claroline\CoreBundle\Manager\ThemeManager;
@@ -31,22 +32,33 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class ThemeController
 {
+    private $serializer;
     private $manager;
     private $formFactory;
     private $router;
 
     /**
+     * ThemeController constructor.
+     *
      * @DI\InjectParams({
-     *     "manager" = @DI\Inject("claroline.manager.theme_manager"),
-     *     "factory" = @DI\Inject("form.factory"),
-     *     "router"  = @DI\Inject("router")
+     *     "serializer" = @DI\Inject("claroline.api.serializer"),
+     *     "manager"    = @DI\Inject("claroline.manager.theme_manager"),
+     *     "factory"    = @DI\Inject("form.factory"),
+     *     "router"     = @DI\Inject("router")
      * })
+     *
+     * @param SerializerProvider $serializer
+     * @param ThemeManager $manager
+     * @param FormFactoryInterface $factory
+     * @param RouterInterface $router
      */
     public function __construct(
+        SerializerProvider $serializer,
         ThemeManager $manager,
         FormFactoryInterface $factory,
-        RouterInterface $router
-    ) {
+        RouterInterface $router)
+    {
+        $this->serializer = $serializer;
         $this->manager = $manager;
         $this->formFactory = $factory;
         $this->router = $router;
@@ -61,7 +73,9 @@ class ThemeController
     {
         return [
             'isReadOnly' => !$this->manager->isThemeDirWritable(),
-            'themes' => $this->manager->listThemes(),
+            'themes' => array_map(function (Theme $theme) {
+                return $this->serializer->serialize($theme);
+            }, $this->manager->listThemes()),
         ];
     }
 

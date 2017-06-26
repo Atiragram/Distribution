@@ -1,27 +1,23 @@
 import {makeReducer, combineReducers} from '#/main/core/utilities/redux'
-import {reducer as apiReducer} from '#/main/core/api/reducer'
-import {reducer as modalReducer} from '#/main/core/layout/modal/reducer'
-import {makeListReducer} from '#/main/core/layout/list/reducer'
 
 import {
   THEME_ADD,
-  THEME_DELETE
+  THEMES_REMOVE,
+  THEME_SELECT
 } from './actions'
 
-const handlers = {
+const reducer = makeReducer({current: null, all: []}, {
+  [THEME_SELECT]: (state, action) => {
+    return Object.assign({}, state, {
+      current: action.theme
+    })
+  },
   [THEME_ADD]: (state, action) => {
     return state
   },
-  [THEME_DELETE]: (state, action) => {
+  [THEMES_REMOVE]: (state, action) => {
     return state
   }
-}
-
-const reducer = combineReducers({
-  currentRequests: apiReducer,
-  themes: makeReducer([], handlers),
-  list: makeListReducer(),
-  modal: modalReducer
 })
 
 export {

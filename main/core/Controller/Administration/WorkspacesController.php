@@ -39,7 +39,7 @@ class WorkspacesController extends Controller
      *     "om"               = @DI\Inject("claroline.persistence.object_manager"),
      *     "eventDispatcher"  = @DI\Inject("claroline.event.event_dispatcher"),
      *     "workspaceManager" = @DI\Inject("claroline.manager.workspace_manager"),
-     *     "finder"           = @DI\Inject("claroline.API.finder")
+     *     "finder"           = @DI\Inject("claroline.api.finder")
      * })
      *
      * @param WorkspaceManager $workspaceManager

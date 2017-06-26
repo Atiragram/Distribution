@@ -23,6 +23,11 @@ class ThemeSerializer
         return [
             'id' => $theme->getUuid(),
             'name' => $theme->getName(),
+            'description' => null, // todo : add field
+            'current' => false,
+            'builtIn' => true, // todo : add field
+            'plugin' => $theme->getPlugin() ? $theme->getPlugin()->getShortName() : null,
+            'user' => null, // todo : add field
         ];
     }
 }

@@ -60,7 +60,7 @@ class WorkspaceController extends FOSRestController
      *     "tokenStorage"     = @DI\Inject("security.token_storage"),
      *     "utilities"        = @DI\Inject("claroline.utilities.misc"),
      *     "workspaceManager" = @DI\Inject("claroline.manager.workspace_manager"),
-     *     "finder"           = @DI\Inject("claroline.API.finder")
+     *     "finder"           = @DI\Inject("claroline.api.finder")
      * })
      */
     public function __construct(
